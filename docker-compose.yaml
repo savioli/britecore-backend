@@ -12,3 +12,21 @@ services:
       - "8000:8000"
     volumes:
       - ./api:/var/www
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    restart: always
+    image: postgres:13.2-alpine
+    user: ${CURRENT_USER}
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: britecore
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: britecore
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./docker/postgresql/data:/var/lib/postgresql/data
+      - /etc/passwd:/etc/passwd:ro
