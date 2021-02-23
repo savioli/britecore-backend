@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+
+  api:
+    container_name: api
+    restart: always
+    build: 
+      context: .
+      dockerfile: ./docker/python/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/var/www
