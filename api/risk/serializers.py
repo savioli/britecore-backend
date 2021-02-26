@@ -3,7 +3,7 @@ from risk.models import Risk
 
 
 class RiskFormSerializer(ModelSerializer):
-    """A serializer that generates all the information about
+    """A Serializer that generates all the information about
     the Risk and about the RiskField's
     """
 
