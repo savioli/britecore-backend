@@ -13,8 +13,10 @@ class RiskFieldSerializer(ModelSerializer):
     the information about the RiskField
     """
 
+    risk_field_type = RiskFieldTypeSerializer()
+
     class Meta:
-        fields = ["id", "name"]
+        fields = ["id", "name", "risk_field_type"]
         model = RiskField
 
 
