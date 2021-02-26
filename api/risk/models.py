@@ -1,18 +1,6 @@
 from django.db import models
 
 
-class Risk(models.Model):
-    """A Model that defines the representation of a Risk"""
-
-    name = models.CharField(max_length=128)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = "risk"
-
-
 class RiskFieldType(models.Model):
     """A Model that represents the type of a Field of a Risk"""
 
@@ -36,3 +24,27 @@ class RiskField(models.Model):
 
     class Meta:
         db_table = "risk_field"
+
+
+class Risk(models.Model):
+    """A Model that defines the representation of a Risk"""
+
+    name = models.CharField(max_length=128)
+
+    risk_field_type = models.ManyToManyField(RiskField, through="RiskRiskField")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "risk"
+
+
+class RiskRiskField(models.Model):
+    """An intermediate Model that defines the relation between Risk and RiskField"""
+
+    risk_field = models.ForeignKey(RiskField, on_delete=models.CASCADE)
+    risk = models.ForeignKey(Risk, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "risk_risk_field"
