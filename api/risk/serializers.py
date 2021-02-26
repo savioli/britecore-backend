@@ -3,6 +3,10 @@ from risk.models import Risk, RiskField, RiskFieldType
 
 
 class RiskFieldTypeSerializer(ModelSerializer):
+    """A Serializer that generates
+    the information about the RiskFieldType
+    """
+
     class Meta:
         fields = ["id", "code", "name"]
         model = RiskFieldType
