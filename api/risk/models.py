@@ -11,3 +11,15 @@ class Risk(models.Model):
 
     class Meta:
         db_table = "risk"
+
+
+class RiskField(models.Model):
+    """A Model that defines the representation of a Field of a Risk"""
+
+    name = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "risk_field"
