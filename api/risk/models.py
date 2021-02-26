@@ -29,6 +29,8 @@ class RiskField(models.Model):
 
     name = models.CharField(max_length=128)
 
+    risk_field_type = models.ForeignKey(RiskFieldType, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.name
 
