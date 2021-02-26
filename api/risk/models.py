@@ -31,7 +31,7 @@ class Risk(models.Model):
 
     name = models.CharField(max_length=128)
 
-    risk_field_type = models.ManyToManyField(RiskField, through="RiskRiskField")
+    risk_fields = models.ManyToManyField(RiskField, through="RiskRiskField")
 
     def __str__(self):
         return self.name
