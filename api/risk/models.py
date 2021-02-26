@@ -17,7 +17,7 @@ class RiskFieldType(models.Model):
     """A Model that represents the type of a Field of a Risk"""
 
     name = models.CharField(max_length=128)
-    code = models.CharField(max_length=64)
+    code = models.CharField(max_length=64, unique=True)
 
     class Meta:
 
