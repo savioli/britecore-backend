@@ -26,6 +26,19 @@ class RiskField(models.Model):
         db_table = "risk_field"
 
 
+class RiskCategory(models.Model):
+    """A Model that represents a Category of a Risk"""
+
+    name = models.CharField(max_length=128)
+    code = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "risk_category"
+
+
 class Risk(models.Model):
     """A Model that defines the representation of a Risk"""
 
