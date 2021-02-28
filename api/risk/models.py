@@ -32,6 +32,7 @@ class RiskCategory(models.Model):
     """A Model that represents a Category of a Risk"""
 
     name = models.CharField(max_length=128)
+    description = models.CharField(max_length=128)
     code = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
