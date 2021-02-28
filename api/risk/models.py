@@ -16,6 +16,7 @@ class RiskField(models.Model):
     """A Model that defines the representation of a Field of a Risk"""
 
     name = models.CharField(max_length=128)
+    description = models.CharField(max_length=128)
 
     risk_field_type = models.ForeignKey(RiskFieldType, on_delete=models.CASCADE)
 
