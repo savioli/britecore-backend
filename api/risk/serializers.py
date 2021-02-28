@@ -45,3 +45,15 @@ class RiskFormSerializer(ModelSerializer):
     class Meta:
         model = Risk
         fields = ["id", "name", "risk_category", "risk_fields"]
+
+
+class RiskSerializer(ModelSerializer):
+    """A Serializer that generates the information about
+    the Risk
+    """
+
+    risk_category = RiskCategorySerializer()
+
+    class Meta:
+        model = Risk
+        fields = ["id", "name", "risk_category"]
