@@ -30,7 +30,7 @@ class RiskFieldSerializer(ModelSerializer):
     risk_field_type = RiskFieldTypeSerializer()
 
     class Meta:
-        fields = ["id", "name", "description", "required", "risk_field_type"]
+        fields = ["id", "name", "description", "risk_field_type"]
         model = RiskField
 
 

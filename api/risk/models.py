@@ -17,7 +17,6 @@ class RiskField(models.Model):
 
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=128)
-    required = models.BooleanField(default=False)
 
     risk_field_type = models.ForeignKey(RiskFieldType, on_delete=models.CASCADE)
 
@@ -59,6 +58,8 @@ class Risk(models.Model):
 
 class RiskRiskField(models.Model):
     """An intermediate Model that defines the relation between Risk and RiskField"""
+
+    required = models.BooleanField(default=False)
 
     risk_field = models.ForeignKey(RiskField, on_delete=models.CASCADE)
     risk = models.ForeignKey(Risk, on_delete=models.CASCADE)

@@ -1,104 +1,117 @@
 [
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 1,
         "fields": {
+            "required": true,
             "risk_field": 1,
             "risk": 4
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 2,
         "fields": {
+            "required": true,
             "risk_field": 2,
             "risk": 4
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 3,
         "fields": {
+            "required": true,
             "risk_field": 3,
             "risk": 4
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 4,
         "fields": {
+            "required": true,
             "risk_field": 1,
             "risk": 5
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 5,
         "fields": {
+            "required": true,
             "risk_field": 2,
             "risk": 5
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 6,
         "fields": {
+            "required": false,
             "risk_field": 3,
             "risk": 5
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 7,
         "fields": {
+            "required": false,
             "risk_field": 4,
             "risk": 5
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 9,
         "fields": {
+            "required": false,
             "risk_field": 5,
             "risk": 2
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 10,
         "fields": {
+            "required": false,
             "risk_field": 6,
             "risk": 3
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 11,
         "fields": {
+            "required": false,
             "risk_field": 1,
             "risk": 1
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 12,
         "fields": {
+            "required": false,
             "risk_field": 2,
             "risk": 1
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 13,
         "fields": {
+            "required": true,
             "risk_field": 3,
             "risk": 1
         }
     },
     {
-        "model": "risk.RiskRiskField",
+        "model": "risk.RiskRiskfield",
         "pk": 14,
         "fields": {
+            "required": true,
             "risk_field": 7,
             "risk": 1
         }
