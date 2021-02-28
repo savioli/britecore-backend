@@ -1,0 +1,42 @@
+[
+    {
+        "model": "risk.RiskCategory",
+        "pk": 1,
+        "fields": {
+            "name": "Cybernetic",
+            "code": "cybernetic"
+        }
+    },
+    {
+        "model": "risk.RiskCategory",
+        "pk": 2,
+        "fields": {
+            "name": "Property-Based",
+            "code": "property_based"
+        }
+    },
+    {
+        "model": "risk.RiskCategory",
+        "pk": 3,
+        "fields": {
+            "name": "Prize",
+            "code": "prize"
+        }
+    },
+    {
+        "model": "risk.RiskCategory",
+        "pk": 4,
+        "fields": {
+            "name": "Vehicle",
+            "code": "vehicle"
+        }
+    },
+    {
+        "model": "risk.RiskCategory",
+        "pk": 5,
+        "fields": {
+            "name": "Life",
+            "code": "life"
+        }
+    }
+]
