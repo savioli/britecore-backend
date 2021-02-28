@@ -4,6 +4,7 @@
         "pk": 1,
         "fields": {
             "name": "Cybernetic",
+            "description": "Cybernetic Category Description",
             "code": "cybernetic"
         }
     },
@@ -12,6 +13,7 @@
         "pk": 2,
         "fields": {
             "name": "Property-Based",
+            "description": "Property-Based Category Description",
             "code": "property_based"
         }
     },
@@ -20,6 +22,7 @@
         "pk": 3,
         "fields": {
             "name": "Prize",
+            "description": "Prize Category Description",
             "code": "prize"
         }
     },
@@ -28,6 +31,7 @@
         "pk": 4,
         "fields": {
             "name": "Vehicle",
+            "description": "Vehicle Category Description",
             "code": "vehicle"
         }
     },
@@ -36,6 +40,7 @@
         "pk": 5,
         "fields": {
             "name": "Life",
+            "description": "Life Category Description",
             "code": "life"
         }
     }

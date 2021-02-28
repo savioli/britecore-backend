@@ -8,7 +8,7 @@ class RiskCategorySerializer(ModelSerializer):
     """
 
     class Meta:
-        fields = ["id", "code", "name"]
+        fields = ["id", "code", "name", "description"]
         model = RiskCategory
 
 
