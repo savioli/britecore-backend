@@ -1,5 +1,15 @@
 from rest_framework.serializers import ModelSerializer
-from risk.models import Risk, RiskField, RiskFieldType
+from risk.models import Risk, RiskCategory, RiskField, RiskFieldType
+
+
+class RiskCategorySerializer(ModelSerializer):
+    """A Serializer that generates
+    the information about the RiskCategory
+    """
+
+    class Meta:
+        fields = ["id", "code", "name"]
+        model = RiskCategory
 
 
 class RiskFieldTypeSerializer(ModelSerializer):
