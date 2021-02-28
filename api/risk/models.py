@@ -44,6 +44,7 @@ class Risk(models.Model):
 
     name = models.CharField(max_length=128)
 
+    risk_category = models.ForeignKey(RiskCategory, on_delete=models.CASCADE)
     risk_fields = models.ManyToManyField(RiskField, through="RiskRiskField")
 
     def __str__(self):
