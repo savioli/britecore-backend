@@ -17,6 +17,7 @@ class RiskField(models.Model):
 
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=128)
+    required = models.BooleanField(default=False)
 
     risk_field_type = models.ForeignKey(RiskFieldType, on_delete=models.CASCADE)
 
