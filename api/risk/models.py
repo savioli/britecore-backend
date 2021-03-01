@@ -65,7 +65,7 @@ class RiskFieldEnumOption(models.Model):
         return self.name
 
     class Meta:
-        db_table = "risk_field_risk_field_enum_option"
+        db_table = "risk_field_enum_option"
 
 
 class RiskRiskField(models.Model):
