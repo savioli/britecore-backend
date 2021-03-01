@@ -61,8 +61,13 @@ class RiskRiskField(models.Model):
 
     required = models.BooleanField(default=False)
 
-    risk_field = models.ForeignKey(RiskField, on_delete=models.CASCADE)
-    risk = models.ForeignKey(Risk, on_delete=models.CASCADE)
+    name = models.CharField(max_length=128)
+    risk_field = models.ForeignKey(
+        RiskField, on_delete=models.CASCADE, related_name="field_to_risk"
+    )
+    risk = models.ForeignKey(
+        Risk, on_delete=models.CASCADE, related_name="risk_to_field"
+    )
 
     class Meta:
         db_table = "risk_risk_field"
