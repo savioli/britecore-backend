@@ -1,0 +1,16 @@
+[
+    {
+        "model": "risk.RiskFieldEnumOption",
+        "pk": 1,
+        "fields": {
+            "name": "Enum Field Option 1"
+        }
+    },
+    {
+        "model": "risk.RiskFieldEnumOption",
+        "pk": 2,
+        "fields": {
+            "name": "Enum Field Option 2"
+        }
+    }
+]

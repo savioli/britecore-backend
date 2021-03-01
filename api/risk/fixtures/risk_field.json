@@ -3,8 +3,8 @@
         "model": "risk.RiskField",
         "pk": 1,
         "fields": {
-            "name": "First Name",
-            "description": "First Name Description",
+            "name": "Text Field",
+            "description": "Text Field Description",
             "risk_field_type": 1
         }
     },
@@ -12,54 +12,27 @@
         "model": "risk.RiskField",
         "pk": 2,
         "fields": {
-            "name": "Middle Name",
-            "description": "Middle Name Description",
-            "risk_field_type": 1
+            "name": "Date Field",
+            "description": "Date Field Description",
+            "risk_field_type": 3
         }
     },
     {
         "model": "risk.RiskField",
         "pk": 3,
         "fields": {
-            "name": "Last Name",
-            "description": "Last Name Description",
-            "risk_field_type": 1
+            "name": "Number Field",
+            "description": "Number Field Description",
+            "risk_field_type": 2
         }
     },
     {
         "model": "risk.RiskField",
         "pk": 4,
         "fields": {
-            "name": "Birth Date",
-            "description": "Insured's Date of Birth",
-            "risk_field_type": 3
-        }
-    },
-    {
-        "model": "risk.RiskField",
-        "pk": 5,
-        "fields": {
-            "name": "Company Name",
-            "description": "The name of the company",
-            "risk_field_type": 1
-        }
-    },
-    {
-        "model": "risk.RiskField",
-        "pk": 6,
-        "fields": {
-            "name": "Prize Value",
-            "description": "Prize Value Description",
-            "risk_field_type": 2
-        }
-    },
-    {
-        "model": "risk.RiskField",
-        "pk": 7,
-        "fields": {
-            "name": "Mileage",
-            "description": "Mileage Description",
-            "risk_field_type": 2
+            "name": "Enum Field",
+            "description": "Enum Field Description",
+            "risk_field_type": 4
         }
     }
 ]
