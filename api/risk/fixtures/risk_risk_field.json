@@ -3,104 +3,36 @@
         "model": "risk.RiskRiskField",
         "pk": 1,
         "fields": {
-            "risk_field": 1,
-            "risk": 4
+            "required": true,
+            "risk": 1,
+            "risk_field": 1
         }
     },
     {
         "model": "risk.RiskRiskField",
         "pk": 2,
         "fields": {
-            "risk_field": 2,
-            "risk": 4
+            "required": false,
+            "risk": 1,
+            "risk_field": 2
         }
     },
     {
         "model": "risk.RiskRiskField",
         "pk": 3,
         "fields": {
-            "risk_field": 3,
-            "risk": 4
+            "required": true,
+            "risk": 1,
+            "risk_field": 3
         }
     },
     {
         "model": "risk.RiskRiskField",
         "pk": 4,
         "fields": {
-            "risk_field": 1,
-            "risk": 5
-        }
-    },
-    {
-        "model": "risk.RiskRiskField",
-        "pk": 5,
-        "fields": {
-            "risk_field": 2,
-            "risk": 5
-        }
-    },
-    {
-        "model": "risk.RiskRiskField",
-        "pk": 6,
-        "fields": {
-            "risk_field": 3,
-            "risk": 5
-        }
-    },
-    {
-        "model": "risk.RiskRiskField",
-        "pk": 7,
-        "fields": {
-            "risk_field": 4,
-            "risk": 5
-        }
-    },
-    {
-        "model": "risk.RiskRiskField",
-        "pk": 9,
-        "fields": {
-            "risk_field": 5,
-            "risk": 2
-        }
-    },
-    {
-        "model": "risk.RiskRiskField",
-        "pk": 10,
-        "fields": {
-            "risk_field": 6,
-            "risk": 3
-        }
-    },
-    {
-        "model": "risk.RiskRiskField",
-        "pk": 11,
-        "fields": {
-            "risk_field": 1,
-            "risk": 1
-        }
-    },
-    {
-        "model": "risk.RiskRiskField",
-        "pk": 12,
-        "fields": {
-            "risk_field": 2,
-            "risk": 1
-        }
-    },
-    {
-        "model": "risk.RiskRiskField",
-        "pk": 13,
-        "fields": {
-            "risk_field": 3,
-            "risk": 1
-        }
-    },
-    {
-        "model": "risk.RiskRiskField",
-        "pk": 14,
-        "fields": {
-            "risk_field": 7,
-            "risk": 1
+            "required": false,
+            "risk": 1,
+            "risk_field": 4
         }
     }
 ]

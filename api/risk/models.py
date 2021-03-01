@@ -17,7 +17,6 @@ class RiskField(models.Model):
 
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=128)
-    required = models.BooleanField(default=False)
 
     risk_field_type = models.ForeignKey(RiskFieldType, on_delete=models.CASCADE)
 
@@ -57,11 +56,52 @@ class Risk(models.Model):
         db_table = "risk"
 
 
+class RiskFieldEnumOption(models.Model):
+    """A Model that defines the representation of a RiskFieldEnumOption"""
+
+    name = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "risk_field_risk_field_enum_option"
+
+
 class RiskRiskField(models.Model):
     """An intermediate Model that defines the relation between Risk and RiskField"""
 
-    risk_field = models.ForeignKey(RiskField, on_delete=models.CASCADE)
-    risk = models.ForeignKey(Risk, on_delete=models.CASCADE)
+    required = models.BooleanField(default=False)
+
+    risk = models.ForeignKey(
+        Risk, on_delete=models.CASCADE, related_name="risk_to_field"
+    )
+    risk_field = models.ForeignKey(
+        RiskField, on_delete=models.CASCADE, related_name="field_to_risk"
+    )
+
+    risk_field_enum_option = models.ManyToManyField(
+        RiskFieldEnumOption, through="RiskRiskFieldRiskFieldEnumOption"
+    )
 
     class Meta:
         db_table = "risk_risk_field"
+
+
+class RiskRiskFieldRiskFieldEnumOption(models.Model):
+    """An intermediate Model that defines the relation between RiskRiskField and RiskFieldEnumOption"""
+
+    risk_risk_field = models.ForeignKey(
+        RiskRiskField,
+        on_delete=models.CASCADE,
+        related_name="risk_risk_field_to_risk_field_enum_option",
+    )
+
+    risk_field_enum_option = models.ForeignKey(
+        RiskFieldEnumOption,
+        on_delete=models.CASCADE,
+        related_name="risk_field_enum_option_to_risk_risk_field",
+    )
+
+    class Meta:
+        db_table = "risk_risk_field_risk_field_enum_option"

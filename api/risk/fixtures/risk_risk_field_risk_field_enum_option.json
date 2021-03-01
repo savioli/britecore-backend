@@ -1,0 +1,18 @@
+[
+    {
+        "model": "risk.RiskRiskFieldRiskFieldEnumOption",
+        "pk": 1,
+        "fields": {
+            "risk_risk_field": 4,
+            "risk_field_enum_option": 1
+        }
+    },
+    {
+        "model": "risk.RiskRiskFieldRiskFieldEnumOption",
+        "pk": 2,
+        "fields": {
+            "risk_risk_field": 4,
+            "risk_field_enum_option": 2
+        }
+    }
+]

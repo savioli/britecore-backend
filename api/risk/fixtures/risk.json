@@ -3,23 +3,23 @@
         "model": "risk.Risk",
         "pk": 1,
         "fields": {
-            "name": "Automobile Insurance",
-            "risk_category": 4
+            "name": "Risk 1",
+            "risk_category": 1
         }
     },
     {
         "model": "risk.Risk",
         "pk": 2,
         "fields": {
-            "name": "Cyber Liability Coverage",
-            "risk_category": 1
+            "name": "Risk 2",
+            "risk_category": 2
         }
     },
     {
         "model": "risk.Risk",
         "pk": 3,
         "fields": {
-            "name": "Prize Insurance",
+            "name": "Risk 3",
             "risk_category": 3
         }
     },
@@ -27,15 +27,15 @@
         "model": "risk.Risk",
         "pk": 4,
         "fields": {
-            "name": "Home Insurance",
-            "risk_category": 2
+            "name": "Risk 4",
+            "risk_category": 4
         }
     },
     {
         "model": "risk.Risk",
         "pk": 5,
         "fields": {
-            "name": "Life Insurance",
+            "name": "Risk 5",
             "risk_category": 5
         }
     }

@@ -3,45 +3,45 @@
         "model": "risk.RiskCategory",
         "pk": 1,
         "fields": {
-            "name": "Cybernetic",
-            "description": "Cybernetic Category Description",
-            "code": "cybernetic"
+            "name": "Category 1",
+            "description": "Category 1 Description",
+            "code": "category_one"
         }
     },
     {
         "model": "risk.RiskCategory",
         "pk": 2,
         "fields": {
-            "name": "Property-Based",
-            "description": "Property-Based Category Description",
-            "code": "property_based"
+            "name": "Category 2",
+            "description": "Category 2 Description",
+            "code": "category_two"
         }
     },
     {
         "model": "risk.RiskCategory",
         "pk": 3,
         "fields": {
-            "name": "Prize",
-            "description": "Prize Category Description",
-            "code": "prize"
+            "name": "Category 3",
+            "description": "Category 3 Description",
+            "code": "category_three"
         }
     },
     {
         "model": "risk.RiskCategory",
         "pk": 4,
         "fields": {
-            "name": "Vehicle",
-            "description": "Vehicle Category Description",
-            "code": "vehicle"
+            "name": "Category 4",
+            "description": "Category 4 Description",
+            "code": "category_four"
         }
     },
     {
         "model": "risk.RiskCategory",
         "pk": 5,
         "fields": {
-            "name": "Life",
-            "description": "Life Category Description",
-            "code": "life"
+            "name": "Category 5",
+            "description": "Category 5 Description",
+            "code": "category_five"
         }
     }
 ]
