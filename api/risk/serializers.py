@@ -1,5 +1,12 @@
 from rest_framework.serializers import ModelSerializer
-from risk.models import Risk, RiskCategory, RiskField, RiskFieldType, RiskRiskField
+from risk.models import (
+    Risk,
+    RiskCategory,
+    RiskField,
+    RiskFieldEnumOption,
+    RiskFieldType,
+    RiskRiskField,
+)
 
 
 class RiskCategorySerializer(ModelSerializer):
@@ -22,6 +29,16 @@ class RiskFieldTypeSerializer(ModelSerializer):
         model = RiskFieldType
 
 
+class RiskFieldEnumOptionSerializer(ModelSerializer):
+    """A Serializer that generates
+    the information about the RiskFieldEnumOption
+    """
+
+    class Meta:
+        fields = ["id", "name"]
+        model = RiskFieldEnumOption
+
+
 class RiskFieldSerializer(ModelSerializer):
     """A Serializer that generates
     the information about the RiskField
@@ -30,32 +47,47 @@ class RiskFieldSerializer(ModelSerializer):
     risk_field_type = RiskFieldTypeSerializer()
 
     class Meta:
-        fields = ["id", "name", "description", "risk_field_type"]
+        fields = [
+            "id",
+            "name",
+            "description",
+            "risk_field_type",
+        ]
         model = RiskField
 
 
 class RiskRiskFieldSerializer(ModelSerializer):
-    """A Serializer that generates the information 
+    """A Serializer that generates the information
     about the model RiskRiskField that intermediates
     the model Risk and the model RiskField
     """
 
     def to_representation(self, instance):
 
-        riskField = RiskField.objects.get(pk=instance.risk_field_id)
-        riskType = riskField.risk_field_type
+        risk_field = RiskField.objects.get(pk=instance.risk_field_id)
 
-        riskField = RiskFieldSerializer(riskField).data
+        risk_type = risk_field.risk_field_type
 
-        riskField.update({"required": instance.required, "type": riskType.code})
+        risk_field_enum_options = instance.risk_field_enum_option.all()
 
-        riskType = riskField.pop("risk_field_type")
+        risk_field_enum_options = [
+            RiskFieldEnumOptionSerializer(risk_field_enum_option).data
+            for risk_field_enum_option in risk_field_enum_options
+        ]
 
-        return riskField
+        risk_field = RiskFieldSerializer(risk_field).data
+
+        if risk_type.code == "enum":
+            risk_field.update({"options": risk_field_enum_options})
+
+        risk_field.update({"required": instance.required, "type": risk_type.code})
+
+        risk_type = risk_field.pop("risk_field_type")
+
+        return risk_field
 
     class Meta:
         fields = ["id", "name"]
-
         model = RiskRiskField
 
 
