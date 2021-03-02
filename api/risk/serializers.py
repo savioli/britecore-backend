@@ -35,7 +35,7 @@ class RiskFieldEnumOptionSerializer(ModelSerializer):
     """
 
     class Meta:
-        fields = ["id", "name"]
+        fields = ["id", "name", "description"]
         model = RiskFieldEnumOption
 
 
