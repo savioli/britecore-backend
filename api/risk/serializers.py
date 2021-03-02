@@ -80,7 +80,13 @@ class RiskRiskFieldSerializer(ModelSerializer):
         if risk_type.code == "enum":
             risk_field.update({"options": risk_field_enum_options})
 
-        risk_field.update({"required": instance.required, "type": risk_type.code})
+        risk_field.update(
+            {
+                "required": instance.required,
+                "type": risk_type.code,
+                "order": instance.order,
+            }
+        )
 
         risk_type = risk_field.pop("risk_field_type")
 
