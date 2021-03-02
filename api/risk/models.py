@@ -73,6 +73,7 @@ class RiskRiskField(models.Model):
     """An intermediate Model that defines the relation between Risk and RiskField"""
 
     required = models.BooleanField(default=False)
+    order = models.IntegerField(default=0)
 
     risk = models.ForeignKey(
         Risk, on_delete=models.CASCADE, related_name="risk_to_field"
