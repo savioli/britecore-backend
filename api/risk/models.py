@@ -93,6 +93,8 @@ class RiskRiskField(models.Model):
 class RiskRiskFieldRiskFieldEnumOption(models.Model):
     """An intermediate Model that defines the relation between RiskRiskField and RiskFieldEnumOption"""
 
+    checked = models.BooleanField(default=False)
+
     risk_risk_field = models.ForeignKey(
         RiskRiskField,
         on_delete=models.CASCADE,
