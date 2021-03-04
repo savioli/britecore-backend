@@ -8,6 +8,8 @@ services:
     build: 
       context: .
       dockerfile: ./docker/python/Dockerfile
+    env_file:
+      - ./docker/python/python.dev.env
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
