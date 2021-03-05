@@ -368,3 +368,26 @@ class RiskAPITestCase(APITestCase):
             required_attribute = None
 
         self.assertEqual(required_attribute, RiskFieldType.DATE)
+
+    def test_if_a_date_field_present_in_the_fields_attribute_of_risk_has_the_attribute_required(
+        self,
+    ):
+        """Checks if the attribute required is returned"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        date_risk_field = self.create_a_risk_field_by_field_type(RiskFieldType.DATE)
+
+        risk.risk_fields.add(date_risk_field)
+
+        risk.save()
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            required_attribute = response.data["fields"][0]["required"]
+        except Exception:
+            required_attribute = None
+
+        self.assertIsNotNone(required_attribute)
