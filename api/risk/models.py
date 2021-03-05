@@ -4,6 +4,11 @@ from django.db import models
 class RiskFieldType(models.Model):
     """A Model that represents the type of a Field of a Risk"""
 
+    TEXT = "text"
+    NUMBER = "number"
+    ENUM = "enum"
+    DATE = "date"
+
     name = models.CharField(max_length=128)
     code = models.CharField(max_length=64, unique=True)
 
