@@ -141,3 +141,18 @@ class RiskAPITestCase(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_if_the_risk_has_the_attribute_category(self):
+        """Checks if the attribute category is returned"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            response_risk_category = response.data["category"]
+        except Exception:
+            response_risk_category = None
+
+        self.assertIsNotNone(response_risk_category)
