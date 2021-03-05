@@ -22,5 +22,5 @@ services:
       - savioli
 
 networks:
-  savioli-network:
+  savioli:
     driver: bridge
