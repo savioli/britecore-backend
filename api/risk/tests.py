@@ -186,3 +186,26 @@ class RiskAPITestCase(APITestCase):
             response_risk_fields_attribute = None
 
         self.assertEqual(response_risk_fields_attribute, list)
+
+    def test_if_the_fields_attribute_of_a_risk_is_not_empty(self):
+        """Checks the content of the returned attribute"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        text_risk_field = self.create_a_risk_field_by_field_type(RiskFieldType.TEXT)
+
+        risk.risk_fields.add(text_risk_field)
+
+        risk.save()
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            response_fields_attribute = response.data["fields"]
+        except Exception:
+            response_fields_attribute = None
+
+        attributes_lenght = len(response_fields_attribute)
+
+        self.assertGreater(attributes_lenght, 0)
