@@ -705,3 +705,23 @@ class RiskAPITestCase(APITestCase):
             response_risk_list_type = None
 
         self.assertEqual(response_risk_list_type, ReturnList)
+
+    def test_if_listing_of_risks_returns_a_list_as_json(self):
+        """Checks the format returned"""
+
+        total_of_risks = 10
+
+        for index in range(total_of_risks):
+            code = "test_category_" + str(index)
+            risk_category = self.create_a_risk_category(code=code)
+            self.create_a_risk(risk_category)
+
+        response = self.client.get("http://localhost:8000/api/v1/risks")
+
+        try:
+            json.loads(response.content)
+            is_json = True
+        except Exception:
+            is_json = False
+
+        self.assertTrue(is_json)
