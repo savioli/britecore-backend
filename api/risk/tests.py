@@ -117,3 +117,15 @@ class RiskAPITestCase(APITestCase):
             is_json = False
 
         self.assertTrue(is_json)
+
+    def test_if_an_existing_risk_retrieved_matches_with_the_risk_id_requested(self):
+        """Checks whether the Risk received matches the requested Risk id"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        response_risk_id = response.data["id"]
+
+        self.assertEqual(response_risk_id, risk.pk)
