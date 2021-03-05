@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import status
 from rest_framework.test import APITestCase
 from risk.models import (
@@ -88,7 +90,7 @@ class RiskAPITestCase(APITestCase):
         response = self.client.post("http://localhost:8000/api/risks/1")
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-    
+
     def test_if_an_existent_risk_returns_found(self):
         """Test if the API displays correctly
         HTTP 200 OK status for a risk that exists"""
@@ -99,3 +101,19 @@ class RiskAPITestCase(APITestCase):
         response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_if_an_existent_risk_returns_as_json(self):
+        """Checks the format returned"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            json.loads(response.content)
+            is_json = True
+        except Exception:
+            is_json = False
+
+        self.assertTrue(is_json)
