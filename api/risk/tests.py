@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework.test import APITestCase
 from risk.models import (
     Risk,
@@ -77,3 +78,13 @@ class RiskAPITestCase(APITestCase):
         risk_field_enum_option.save()
 
         return risk_field_enum_option
+
+    def test_if_and_non_existent_risk_returns_not_found(self):
+        """Test if the API displays correctly
+        HTTP 404 NOT FOUND status for a risk that does not exists"""
+
+        Risk.objects.all().delete()
+
+        response = self.client.post("http://localhost:8000/api/risks/1")
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
