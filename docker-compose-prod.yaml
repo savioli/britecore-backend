@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+
+  api:
+    image: savioli/britecore-backend:latest
+    container_name: api
+    restart: always
+    build: 
+      context: .
+      dockerfile: ./deploy/python/Dockerfile
+    env_file:
+      - ./deploy/python/python.prod.env
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+    networks:
+      - savioli
+
+networks:
+  savioli:
+    driver: bridge

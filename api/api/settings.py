@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
+from distutils.util import strtobool
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "zfgc2^!am4l6i-y(&1luhwshblhlrqe!)0$j3yh@ndhgp94f_9"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(strtobool(os.getenv("DEBUG")))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]
 
 
 # Application definition
@@ -34,9 +36,9 @@ INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    "django.contrib.sessions",
+    # "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
+    # "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
     "risk",
@@ -56,7 +58,7 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    os.getenv("CORS_ALLOWED_ORIGIN"),
 ]
 
 ROOT_URLCONF = "api.urls"
@@ -85,12 +87,15 @@ WSGI_APPLICATION = "api.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "britecore",
-        "USER": "postgres",
-        "PASSWORD": "britecore",
-        "HOST": "postgres",
-        "PORT": "5432",
+        "ENGINE": os.getenv("DB_ENGINE"),
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
+        "TEST": {
+            "NAME": os.getenv("TEST_DB_NAME"),
+        },
     }
 }
 
@@ -117,18 +122,43 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = os.getenv("LANGUAGE_CODE")
 
-TIME_ZONE = "UTC"
+TIME_ZONE = os.getenv("TIME_ZONE")
 
-USE_I18N = True
+USE_I18N = os.getenv("USE_I18N")
 
-USE_L10N = True
+USE_L10N = os.getenv("USE_L10N")
 
-USE_TZ = True
-
+USE_TZ = os.getenv("USE_TZ")
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = os.getenv("STATIC_URL")
+
+
+STATIC_ROOT = os.getenv("STATIC_ROOT")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "debug.log",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",)
+}
