@@ -8,6 +8,8 @@ from risk.models import (
     RiskField,
     RiskFieldEnumOption,
     RiskFieldType,
+    RiskRiskField,
+    RiskRiskFieldRiskFieldEnumOption,
 )
 
 
@@ -527,3 +529,37 @@ class RiskAPITestCase(APITestCase):
             response_options_attribute_type = None
 
         self.assertEqual(response_options_attribute_type, list)
+
+    def test_if_the_options_attribute_present_in_the_fields_of_a_risk_that_has_an_enum_field_type_is_not_empty(
+        self,
+    ):
+        """Checks the content of the returned attribute"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        enum_risk_field = self.create_a_risk_field_by_field_type(RiskFieldType.ENUM)
+
+        risk_field_enum_option = self.create_a_risk_field_enum_option()
+        risk.risk_fields.add(enum_risk_field)
+        risk.save()
+
+        risk_risk_field = RiskRiskField.objects.filter(
+            risk=risk, risk_field=enum_risk_field
+        ).get()
+        risk_risk_field_risk_field_enum_option = RiskRiskFieldRiskFieldEnumOption(
+            risk_risk_field=risk_risk_field,
+            risk_field_enum_option=risk_field_enum_option,
+        )
+        risk_risk_field_risk_field_enum_option.save()
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            response_options = response.data["fields"][0]["options"]
+        except Exception:
+            response_options = None
+
+        response_options_lenght = len(response_options)
+
+        self.assertGreater(response_options_lenght, 0)
