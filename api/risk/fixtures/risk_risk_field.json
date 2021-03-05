@@ -4,6 +4,7 @@
         "pk": 1,
         "fields": {
             "required": true,
+            "order": 0,
             "risk": 1,
             "risk_field": 1
         }
@@ -13,6 +14,7 @@
         "pk": 2,
         "fields": {
             "required": false,
+            "order": 0,
             "risk": 1,
             "risk_field": 2
         }
@@ -22,6 +24,7 @@
         "pk": 3,
         "fields": {
             "required": true,
+            "order": 0,
             "risk": 1,
             "risk_field": 3
         }
@@ -31,6 +34,7 @@
         "pk": 4,
         "fields": {
             "required": false,
+            "order": 0,
             "risk": 1,
             "risk_field": 4
         }

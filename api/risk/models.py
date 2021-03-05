@@ -60,18 +60,20 @@ class RiskFieldEnumOption(models.Model):
     """A Model that defines the representation of a RiskFieldEnumOption"""
 
     name = models.CharField(max_length=128)
+    description = models.CharField(max_length=128)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        db_table = "risk_field_risk_field_enum_option"
+        db_table = "risk_field_enum_option"
 
 
 class RiskRiskField(models.Model):
     """An intermediate Model that defines the relation between Risk and RiskField"""
 
     required = models.BooleanField(default=False)
+    order = models.IntegerField(default=0)
 
     risk = models.ForeignKey(
         Risk, on_delete=models.CASCADE, related_name="risk_to_field"
@@ -90,6 +92,8 @@ class RiskRiskField(models.Model):
 
 class RiskRiskFieldRiskFieldEnumOption(models.Model):
     """An intermediate Model that defines the relation between RiskRiskField and RiskFieldEnumOption"""
+
+    checked = models.BooleanField(default=False)
 
     risk_risk_field = models.ForeignKey(
         RiskRiskField,
