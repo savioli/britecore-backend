@@ -171,3 +171,18 @@ class RiskAPITestCase(APITestCase):
             response_fields_attribute = None
 
         self.assertIsNotNone(response_fields_attribute)
+
+    def test_if_the_fields_attribute_of_a_risk_is_a_list(self):
+        """Checks the format of the returned attribute"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            response_risk_fields_attribute = type(response.data["fields"])
+        except Exception:
+            response_risk_fields_attribute = None
+
+        self.assertEqual(response_risk_fields_attribute, list)
