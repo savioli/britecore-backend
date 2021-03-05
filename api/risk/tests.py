@@ -483,3 +483,24 @@ class RiskAPITestCase(APITestCase):
             required_attribute = None
 
         self.assertIsNotNone(required_attribute)
+
+    def test_if_the_risk_that_has_an_enum_field_type_present_in_their_fields_has_the_options_attribute(
+        self,
+    ):
+        """Checks if the attribute options is returned"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        enum_risk_field = self.create_a_risk_field_by_field_type(RiskFieldType.ENUM)
+        risk.risk_fields.add(enum_risk_field)
+        risk.save()
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            required_attribute = response.data["fields"][0]["options"]
+        except Exception:
+            required_attribute = None
+
+        self.assertIsNotNone(required_attribute)
