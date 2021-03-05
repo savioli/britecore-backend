@@ -2,6 +2,7 @@ import json
 
 from rest_framework import status
 from rest_framework.test import APITestCase
+from rest_framework.utils.serializer_helpers import ReturnList
 from risk.models import (
     Risk,
     RiskCategory,
@@ -685,3 +686,22 @@ class RiskAPITestCase(APITestCase):
         response_total_of_risks = len(response.data)
 
         self.assertEqual(response_total_of_risks, total_of_risks)
+
+    def test_if_listing_of_risks_returns_a_list_as_response(self):
+        """Checks the structure returned"""
+
+        total_of_risks = 10
+
+        for index in range(total_of_risks):
+            code = "test_category_" + str(index)
+            risk_category = self.create_a_risk_category(code=code)
+            self.create_a_risk(risk_category)
+
+        response = self.client.get("http://localhost:8000/api/v1/risks")
+
+        try:
+            response_risk_list_type = type(response.data)
+        except Exception:
+            response_risk_list_type = None
+
+        self.assertEqual(response_risk_list_type, ReturnList)
