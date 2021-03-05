@@ -190,6 +190,23 @@ class RiskAPITestCase(APITestCase):
 
         self.assertEqual(response_risk_fields_attribute, list)
 
+    def test_if_a_risk_has_the_attribute_active(
+        self,
+    ):
+        """Checks if the attribute required is returned"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            required_attribute = response.data["active"]
+        except Exception:
+            required_attribute = None
+
+        self.assertIsNotNone(required_attribute)
+
     def test_if_the_fields_attribute_of_a_risk_is_not_empty(self):
         """Checks the content of the returned attribute"""
 
