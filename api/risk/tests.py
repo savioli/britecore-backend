@@ -669,3 +669,19 @@ class RiskAPITestCase(APITestCase):
             response_checked_attribute = None
 
         self.assertIsNotNone(response_checked_attribute)
+    
+    def test_if_listing_of_risks_returns_all_the_risks(self):
+        """Checks the content of the returned list"""
+
+        total_of_risks = 10
+
+        for index in range(total_of_risks):
+            code = "test_category_" + str(index)
+            risk_category = self.create_a_risk_category(code=code)
+            self.create_a_risk(risk_category)
+
+        response = self.client.get("http://localhost:8000/api/v1/risks")
+
+        response_total_of_risks = len(response.data)
+
+        self.assertEqual(response_total_of_risks, total_of_risks)
