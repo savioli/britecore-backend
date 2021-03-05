@@ -209,3 +209,26 @@ class RiskAPITestCase(APITestCase):
         attributes_lenght = len(response_fields_attribute)
 
         self.assertGreater(attributes_lenght, 0)
+
+    def test_if_a_text_field_present_in_the_fields_attribute_of_risk_has_the_correct_type_attribute(
+        self,
+    ):
+        """Checks the type of the text field attribute"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        text_risk_field = self.create_a_risk_field_by_field_type(RiskFieldType.TEXT)
+
+        risk.risk_fields.add(text_risk_field)
+
+        risk.save()
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            required_attribute = response.data["fields"][0]["type"]
+        except Exception:
+            required_attribute = None
+
+        self.assertEqual(required_attribute, RiskFieldType.TEXT)
