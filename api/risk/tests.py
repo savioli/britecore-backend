@@ -1,5 +1,11 @@
 from rest_framework.test import APITestCase
-from risk.models import Risk, RiskCategory, RiskField, RiskFieldType
+from risk.models import (
+    Risk,
+    RiskCategory,
+    RiskField,
+    RiskFieldEnumOption,
+    RiskFieldType,
+)
 
 
 class RiskAPITestCase(APITestCase):
@@ -60,3 +66,14 @@ class RiskAPITestCase(APITestCase):
         text_risk_field.save()
 
         return text_risk_field
+
+    def create_a_risk_field_enum_option(self):
+        """A function to help the creation of RiskFieldEnumOption objects during the tests"""
+        risk_field_enum_option = RiskFieldEnumOption(
+            name="Test Risk Field Enum Option",
+            description="Test Risk Field Enum Option",
+        )
+
+        risk_field_enum_option.save()
+
+        return risk_field_enum_option
