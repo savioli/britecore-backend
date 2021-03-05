@@ -143,13 +143,11 @@ class RiskFormSerializer(ModelSerializer):
 
     risk_category = RiskCategorySerializer()
 
-    risk_fields = RiskRiskFieldSerializer(
-        source="risk_to_field", many=True, read_only=True
-    )
+    fields = RiskRiskFieldSerializer(source="risk_to_field", many=True, read_only=True)
 
     class Meta:
         model = Risk
-        fields = ["id", "name", "risk_category", "risk_fields"]
+        fields = ["id", "name", "risk_category", "fields"]
 
 
 class RiskSerializer(ModelSerializer):
