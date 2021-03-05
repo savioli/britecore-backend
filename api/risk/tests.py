@@ -323,3 +323,25 @@ class RiskAPITestCase(APITestCase):
             required_attribute = None
 
         self.assertIsNotNone(required_attribute)
+
+    def test_if_a_number_field_present_in_the_fields_attribute_of_risk_has_the_attribute_order(
+        self,
+    ):
+        """Checks if the attribute order is returned"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        number_risk_field = self.create_a_risk_field_by_field_type(RiskFieldType.NUMBER)
+
+        risk.risk_fields.add(number_risk_field)
+        risk.save()
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            required_attribute = response.data["fields"][0]["order"]
+        except Exception:
+            required_attribute = None
+
+        self.assertIsNotNone(required_attribute)
