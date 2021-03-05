@@ -167,8 +167,17 @@ class RiskSerializer(ModelSerializer):
     the Risk
     """
 
-    risk_category = RiskCategorySerializer()
+    category = SerializerMethodField()
+
+    def get_category(self, instance):
+
+        return {
+            "id": instance.risk_category.id,
+            "code": instance.risk_category.code,
+            "name": instance.risk_category.name,
+            "description": instance.risk_category.description,
+        }
 
     class Meta:
         model = Risk
-        fields = ["id", "active", "name", "description", "risk_category"]
+        fields = ["id", "active", "name", "description", "category"]
