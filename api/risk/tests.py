@@ -634,3 +634,38 @@ class RiskAPITestCase(APITestCase):
             response_checked_attribute = None
 
         self.assertIsNotNone(response_checked_attribute)
+
+    def test_if_a_risk_field_enum_option_in_enum_field_type_present_in_the_fields_of_a_risk_has_the_attribute_order(
+        self,
+    ):
+        """Checks if the attribute order is returned"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        date_risk_field = self.create_a_risk_field_by_field_type(RiskFieldType.ENUM)
+
+        risk_field_enum_option = self.create_a_risk_field_enum_option()
+        risk.risk_fields.add(date_risk_field)
+
+        risk.save()
+
+        risk_risk_field = RiskRiskField.objects.filter(
+            risk=risk, risk_field=date_risk_field
+        ).get()
+        risk_risk_field_risk_field_enum_option = RiskRiskFieldRiskFieldEnumOption(
+            risk_risk_field=risk_risk_field,
+            risk_field_enum_option=risk_field_enum_option,
+        )
+        risk_risk_field_risk_field_enum_option.save()
+
+        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+
+        try:
+            response_checked_attribute = response.data["fields"][0]["options"][0][
+                "order"
+            ]
+        except Exception:
+            response_checked_attribute = None
+
+        self.assertIsNotNone(response_checked_attribute)
