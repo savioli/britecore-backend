@@ -1,3 +1,7 @@
-from django.test import TestCase
+from rest_framework.test import APITestCase
 
-# Create your tests here.
+
+class RiskAPITestCase(APITestCase):
+    """Test class for the Risk API"""
+
+    fixtures = ["risk/fixtures/risk_field_type.json"]
