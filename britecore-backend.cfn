@@ -1,0 +1,251 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  ApiService:
+    DependsOn:
+    - ApiTCP8000Listener
+    Properties:
+      Cluster:
+        Fn::GetAtt:
+        - Cluster
+        - Arn
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 100
+      DeploymentController:
+        Type: ECS
+      DesiredCount: 1
+      LaunchType: FARGATE
+      LoadBalancers:
+      - ContainerName: api
+        ContainerPort: 8000
+        TargetGroupArn:
+          Ref: ApiTCP8000TargetGroup
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+          - Ref: SavioliNetwork
+          Subnets:
+          - subnet-01d78280c1bb31bda
+          - subnet-0e653385677af6a6f
+          - subnet-05b970c6527a64c25
+      PlatformVersion: 1.4.0
+      PropagateTags: SERVICE
+      SchedulingStrategy: REPLICA
+      ServiceRegistries:
+      - RegistryArn:
+          Fn::GetAtt:
+          - ApiServiceDiscoveryEntry
+          - Arn
+      Tags:
+      - Key: com.docker.compose.project
+        Value: britecore-backend
+      - Key: com.docker.compose.service
+        Value: api
+      TaskDefinition:
+        Ref: ApiTaskDefinition
+    Type: AWS::ECS::Service
+  ApiServiceDiscoveryEntry:
+    Properties:
+      Description: '"api" service discovery entry in Cloud Map'
+      DnsConfig:
+        DnsRecords:
+        - TTL: 60
+          Type: A
+        RoutingPolicy: MULTIVALUE
+      HealthCheckCustomConfig:
+        FailureThreshold: 1
+      Name: api
+      NamespaceId:
+        Ref: CloudMap
+    Type: AWS::ServiceDiscovery::Service
+  ApiTCP8000Listener:
+    Properties:
+      DefaultActions:
+      - ForwardConfig:
+          TargetGroups:
+          - TargetGroupArn:
+              Ref: ApiTCP8000TargetGroup
+        Type: forward
+      LoadBalancerArn:
+        Ref: LoadBalancer
+      Port: 8000
+      Protocol: TCP
+    Type: AWS::ElasticLoadBalancingV2::Listener
+  ApiTCP8000TargetGroup:
+    Properties:
+      Port: 8000
+      Protocol: TCP
+      Tags:
+      - Key: com.docker.compose.project
+        Value: britecore-backend
+      TargetType: ip
+      VpcId: vpc-0b28b4f187799cf33
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  ApiTaskDefinition:
+    Properties:
+      ContainerDefinitions:
+      - Command:
+        - us-east-2.compute.internal
+        - britecore-backend.local
+        Essential: false
+        Image: docker/ecs-searchdomain-sidecar:1.0
+        LogConfiguration:
+          LogDriver: awslogs
+          Options:
+            awslogs-group:
+              Ref: LogGroup
+            awslogs-region:
+              Ref: AWS::Region
+            awslogs-stream-prefix: britecore-backend
+        Name: Api_ResolvConf_InitContainer
+      - DependsOn:
+        - Condition: SUCCESS
+          ContainerName: Api_ResolvConf_InitContainer
+        Environment:
+        - Name: ALLOWED_HOSTS
+          Value: '*'
+        - Name: CORS_ALLOWED_ORIGIN
+          Value: http://localhost:3000
+        - Name: DB_ENGINE
+          Value: django.db.backends.sqlite3
+        - Name: DB_HOST
+          Value: postgres
+        - Name: DB_NAME
+          Value: sqlite3.db
+        - Name: DB_PASSWORD
+          Value: britecore
+        - Name: DB_POST
+          Value: "5432"
+        - Name: DB_USER
+          Value: postgres
+        - Name: DEBUG
+          Value: "False"
+        - Name: LANGUAGE_CODE
+          Value: en-us
+        - Name: PYTHONDONTWRITEBYTECODE
+          Value: "0"
+        - Name: PYTHONUNBUFFERED
+          Value: "0"
+        - Name: SECRET_KEY
+          Value: zfgc2^!am4l6i-y(&1luhwshblhlrqe!)0$j3yh@ndhgp94f_9
+        - Name: STATIC_ROOT
+          Value: /var/www/static/
+        - Name: STATIC_URL
+          Value: /static/
+        - Name: TEST_DB_NAME
+          Value: britecore
+        - Name: TIME_ZONE
+          Value: UTC
+        - Name: USE_I18N
+          Value: "True"
+        - Name: USE_L10N
+          Value: "True"
+        - Name: USE_TZ
+          Value: "True"
+        Essential: true
+        Image: docker.io/savioli/britecore-backend:latest@sha256:20bd9d799e581569bf638442c56229e94e4116c64a2afed68f43746bc392c0a4
+        LinuxParameters: {}
+        LogConfiguration:
+          LogDriver: awslogs
+          Options:
+            awslogs-group:
+              Ref: LogGroup
+            awslogs-region:
+              Ref: AWS::Region
+            awslogs-stream-prefix: britecore-backend
+        Name: api
+        PortMappings:
+        - ContainerPort: 8000
+          HostPort: 8000
+          Protocol: tcp
+      Cpu: "512"
+      ExecutionRoleArn:
+        Ref: ApiTaskExecutionRole
+      Family: britecore-backend-api
+      Memory: "1024"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+      - FARGATE
+    Type: AWS::ECS::TaskDefinition
+  ApiTaskExecutionRole:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action:
+          - sts:AssumeRole
+          Condition: {}
+          Effect: Allow
+          Principal:
+            Service: ecs-tasks.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+      - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+      Tags:
+      - Key: com.docker.compose.project
+        Value: britecore-backend
+      - Key: com.docker.compose.service
+        Value: api
+    Type: AWS::IAM::Role
+  CloudMap:
+    Properties:
+      Description: Service Map for Docker Compose project britecore-backend
+      Name: britecore-backend.local
+      Vpc: vpc-0b28b4f187799cf33
+    Type: AWS::ServiceDiscovery::PrivateDnsNamespace
+  Cluster:
+    Properties:
+      ClusterName: britecore-backend
+      Tags:
+      - Key: com.docker.compose.project
+        Value: britecore-backend
+    Type: AWS::ECS::Cluster
+  LoadBalancer:
+    Properties:
+      LoadBalancerAttributes:
+      - Key: load_balancing.cross_zone.enabled
+        Value: "true"
+      Scheme: internet-facing
+      Subnets:
+      - subnet-01d78280c1bb31bda
+      - subnet-0e653385677af6a6f
+      - subnet-05b970c6527a64c25
+      Tags:
+      - Key: com.docker.compose.project
+        Value: britecore-backend
+      Type: network
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  LogGroup:
+    Properties:
+      LogGroupName: /docker-compose/britecore-backend
+    Type: AWS::Logs::LogGroup
+  Savioli8000Ingress:
+    Properties:
+      CidrIp: 0.0.0.0/0
+      Description: api:8000/tcp on savioli network
+      FromPort: 8000
+      GroupId:
+        Ref: SavioliNetwork
+      IpProtocol: TCP
+      ToPort: 8000
+    Type: AWS::EC2::SecurityGroupIngress
+  SavioliNetwork:
+    Properties:
+      GroupDescription: britecore-backend Security Group for savioli network
+      Tags:
+      - Key: com.docker.compose.project
+        Value: britecore-backend
+      - Key: com.docker.compose.network
+        Value: britecore-backend_savioli
+      VpcId: vpc-0b28b4f187799cf33
+    Type: AWS::EC2::SecurityGroup
+  SavioliNetworkIngress:
+    Properties:
+      Description: Allow communication within network savioli
+      GroupId:
+        Ref: SavioliNetwork
+      IpProtocol: "-1"
+      SourceSecurityGroupId:
+        Ref: SavioliNetwork
+    Type: AWS::EC2::SecurityGroupIngress
