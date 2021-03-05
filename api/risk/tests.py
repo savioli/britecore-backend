@@ -129,3 +129,15 @@ class RiskAPITestCase(APITestCase):
         response_risk_id = response.data["id"]
 
         self.assertEqual(response_risk_id, risk.pk)
+
+    def test_if_a_request_with_a_negative_risk_id_responds_with_not_found(self):
+        """Tests a negative entry for Risk id"""
+
+        risk_category = self.create_a_risk_category()
+        risk = self.create_a_risk(risk_category)
+
+        response = self.client.get(
+            "http://localhost:8000/api/v1/risks/-" + str(risk.pk)
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
