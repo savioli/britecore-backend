@@ -159,7 +159,7 @@ class RiskFormSerializer(ModelSerializer):
 
     class Meta:
         model = Risk
-        fields = ["id", "name", "category", "fields"]
+        fields = ["id", "active", "name", "category", "fields"]
 
 
 class RiskSerializer(ModelSerializer):
@@ -171,4 +171,4 @@ class RiskSerializer(ModelSerializer):
 
     class Meta:
         model = Risk
-        fields = ["id", "name", "risk_category"]
+        fields = ["id", "active", "name", "risk_category"]

@@ -3,6 +3,7 @@
         "model": "risk.Risk",
         "pk": 1,
         "fields": {
+            "active": true,
             "name": "Risk 1",
             "risk_category": 1
         }
@@ -11,6 +12,7 @@
         "model": "risk.Risk",
         "pk": 2,
         "fields": {
+            "active": true,
             "name": "Risk 2",
             "risk_category": 2
         }
@@ -19,6 +21,7 @@
         "model": "risk.Risk",
         "pk": 3,
         "fields": {
+            "active": true,
             "name": "Risk 3",
             "risk_category": 3
         }
@@ -27,6 +30,7 @@
         "model": "risk.Risk",
         "pk": 4,
         "fields": {
+            "active": true,
             "name": "Risk 4",
             "risk_category": 4
         }
@@ -35,6 +39,7 @@
         "model": "risk.Risk",
         "pk": 5,
         "fields": {
+            "active": true,
             "name": "Risk 5",
             "risk_category": 5
         }

@@ -50,7 +50,7 @@ class Risk(models.Model):
     """A Model that defines the representation of a Risk"""
 
     name = models.CharField(max_length=128)
-
+    active = models.BooleanField(default=True)
     risk_category = models.ForeignKey(RiskCategory, on_delete=models.CASCADE)
     risk_fields = models.ManyToManyField(RiskField, through="RiskRiskField")
 
