@@ -17,6 +17,8 @@ from risk.models import (
 class RiskAPITestCase(APITestCase):
     """Test class for the Risk API"""
 
+    risk_api_url = "http://localhost:8000/api/v1/risks"
+
     fixtures = ["risk/fixtures/risk_field_type.json"]
 
     def create_a_risk_category(self, code="test_category"):
@@ -90,7 +92,7 @@ class RiskAPITestCase(APITestCase):
 
         Risk.objects.all().delete()
 
-        response = self.client.post("http://localhost:8000/api/risks/1")
+        response = self.client.get(self.risk_api_url + "/1")
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -101,7 +103,7 @@ class RiskAPITestCase(APITestCase):
         risk_category = self.create_a_risk_category()
         risk = self.create_a_risk(risk_category)
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -111,7 +113,7 @@ class RiskAPITestCase(APITestCase):
         risk_category = self.create_a_risk_category()
         risk = self.create_a_risk(risk_category)
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             json.loads(response.content)
@@ -127,7 +129,7 @@ class RiskAPITestCase(APITestCase):
         risk_category = self.create_a_risk_category()
         risk = self.create_a_risk(risk_category)
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         response_risk_id = response.data["id"]
 
@@ -151,7 +153,7 @@ class RiskAPITestCase(APITestCase):
         risk_category = self.create_a_risk_category()
         risk = self.create_a_risk(risk_category)
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             response_risk_category = response.data["category"]
@@ -166,7 +168,7 @@ class RiskAPITestCase(APITestCase):
         risk_category = self.create_a_risk_category()
         risk = self.create_a_risk(risk_category)
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             response_fields_attribute = response.data["fields"]
@@ -181,7 +183,7 @@ class RiskAPITestCase(APITestCase):
         risk_category = self.create_a_risk_category()
         risk = self.create_a_risk(risk_category)
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             response_risk_fields_attribute = type(response.data["fields"])
@@ -198,7 +200,7 @@ class RiskAPITestCase(APITestCase):
         risk_category = self.create_a_risk_category()
         risk = self.create_a_risk(risk_category)
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["active"]
@@ -219,7 +221,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             response_fields_attribute = response.data["fields"]
@@ -244,7 +246,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["type"]
@@ -267,7 +269,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["required"]
@@ -290,7 +292,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["order"]
@@ -313,7 +315,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["type"]
@@ -335,7 +337,7 @@ class RiskAPITestCase(APITestCase):
         risk.risk_fields.add(number_risk_field)
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["required"]
@@ -357,7 +359,7 @@ class RiskAPITestCase(APITestCase):
         risk.risk_fields.add(number_risk_field)
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["order"]
@@ -380,7 +382,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["type"]
@@ -403,7 +405,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["required"]
@@ -426,7 +428,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["order"]
@@ -449,7 +451,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["type"]
@@ -472,7 +474,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["required"]
@@ -495,7 +497,7 @@ class RiskAPITestCase(APITestCase):
 
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["order"]
@@ -516,7 +518,7 @@ class RiskAPITestCase(APITestCase):
         risk.risk_fields.add(enum_risk_field)
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             required_attribute = response.data["fields"][0]["options"]
@@ -537,7 +539,7 @@ class RiskAPITestCase(APITestCase):
         risk.risk_fields.add(enum_risk_field)
         risk.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             response_options_attribute_type = type(
@@ -571,7 +573,7 @@ class RiskAPITestCase(APITestCase):
         )
         risk_risk_field_risk_field_enum_option.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             response_options = response.data["fields"][0]["options"]
@@ -607,7 +609,7 @@ class RiskAPITestCase(APITestCase):
             )
             risk_risk_field_risk_field_enum_option.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             response_options = response.data["fields"][0]["options"]
@@ -642,7 +644,7 @@ class RiskAPITestCase(APITestCase):
         )
         risk_risk_field_risk_field_enum_option.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             response_checked_attribute = response.data["fields"][0]["options"][0][
@@ -677,7 +679,7 @@ class RiskAPITestCase(APITestCase):
         )
         risk_risk_field_risk_field_enum_option.save()
 
-        response = self.client.get("http://localhost:8000/api/v1/risks/" + str(risk.pk))
+        response = self.client.get(self.risk_api_url + "/" + str(risk.pk))
 
         try:
             response_checked_attribute = response.data["fields"][0]["options"][0][
@@ -698,7 +700,7 @@ class RiskAPITestCase(APITestCase):
             risk_category = self.create_a_risk_category(code=code)
             self.create_a_risk(risk_category)
 
-        response = self.client.get("http://localhost:8000/api/v1/risks")
+        response = self.client.get(self.risk_api_url)
 
         response_total_of_risks = len(response.data)
 
@@ -714,7 +716,7 @@ class RiskAPITestCase(APITestCase):
             risk_category = self.create_a_risk_category(code=code)
             self.create_a_risk(risk_category)
 
-        response = self.client.get("http://localhost:8000/api/v1/risks")
+        response = self.client.get(self.risk_api_url)
 
         try:
             response_risk_list_type = type(response.data)
@@ -733,7 +735,7 @@ class RiskAPITestCase(APITestCase):
             risk_category = self.create_a_risk_category(code=code)
             self.create_a_risk(risk_category)
 
-        response = self.client.get("http://localhost:8000/api/v1/risks")
+        response = self.client.get(self.risk_api_url)
 
         try:
             json.loads(response.content)
