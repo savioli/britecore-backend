@@ -1,5 +1,5 @@
 from rest_framework.test import APITestCase
-from risk.models import RiskCategory
+from risk.models import Risk, RiskCategory
 
 
 class RiskAPITestCase(APITestCase):
@@ -18,3 +18,11 @@ class RiskAPITestCase(APITestCase):
         risk_category.save()
 
         return risk_category
+
+    def create_a_risk(self, risk_category):
+        """A function to help the creation of Risk objects during the tests"""
+
+        risk = Risk(name="Test Risk", risk_category=risk_category)
+        risk.save()
+
+        return risk
