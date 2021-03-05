@@ -4,7 +4,8 @@
         "pk": 1,
         "fields": {
             "risk_risk_field": 4,
-            "risk_field_enum_option": 1
+            "risk_field_enum_option": 1,
+            "order": 0
         }
     },
     {
@@ -12,7 +13,8 @@
         "pk": 2,
         "fields": {
             "risk_risk_field": 4,
-            "risk_field_enum_option": 2
+            "risk_field_enum_option": 2,
+            "order": 0
         }
     }
 ]

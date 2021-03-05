@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from risk.models import (
     Risk,
     RiskCategory,
@@ -103,7 +103,10 @@ class RiskRiskFieldSerializer(ModelSerializer):
                 )
 
                 serialized_risk_risk_field_risk_field_enum_option.update(
-                    {"checked": risk_risk_field_risk_field_enum_option.checked}
+                    {
+                        "checked": risk_risk_field_risk_field_enum_option.checked,
+                        "order": risk_risk_field_risk_field_enum_option.order,
+                    }
                 )
 
                 risk_field_enum_options_with_through_properties.append(
@@ -141,15 +144,22 @@ class RiskFormSerializer(ModelSerializer):
     the Risk and about the RiskField's
     """
 
-    risk_category = RiskCategorySerializer()
+    category = SerializerMethodField()
 
-    risk_fields = RiskRiskFieldSerializer(
-        source="risk_to_field", many=True, read_only=True
-    )
+    fields = RiskRiskFieldSerializer(source="risk_to_field", many=True, read_only=True)
+
+    def get_category(self, instance):
+
+        return {
+            "id": instance.risk_category.id,
+            "code": instance.risk_category.code,
+            "name": instance.risk_category.name,
+            "description": instance.risk_category.description,
+        }
 
     class Meta:
         model = Risk
-        fields = ["id", "name", "risk_category", "risk_fields"]
+        fields = ["id", "active", "name", "description", "category", "fields"]
 
 
 class RiskSerializer(ModelSerializer):
@@ -161,4 +171,4 @@ class RiskSerializer(ModelSerializer):
 
     class Meta:
         model = Risk
-        fields = ["id", "name", "risk_category"]
+        fields = ["id", "active", "name", "description", "risk_category"]

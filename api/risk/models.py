@@ -4,6 +4,11 @@ from django.db import models
 class RiskFieldType(models.Model):
     """A Model that represents the type of a Field of a Risk"""
 
+    TEXT = "text"
+    NUMBER = "number"
+    ENUM = "enum"
+    DATE = "date"
+
     name = models.CharField(max_length=128)
     code = models.CharField(max_length=64, unique=True)
 
@@ -45,7 +50,8 @@ class Risk(models.Model):
     """A Model that defines the representation of a Risk"""
 
     name = models.CharField(max_length=128)
-
+    active = models.BooleanField(default=True)
+    description = models.CharField(max_length=128)
     risk_category = models.ForeignKey(RiskCategory, on_delete=models.CASCADE)
     risk_fields = models.ManyToManyField(RiskField, through="RiskRiskField")
 
@@ -94,6 +100,7 @@ class RiskRiskFieldRiskFieldEnumOption(models.Model):
     """An intermediate Model that defines the relation between RiskRiskField and RiskFieldEnumOption"""
 
     checked = models.BooleanField(default=False)
+    order = models.IntegerField(default=0)
 
     risk_risk_field = models.ForeignKey(
         RiskRiskField,
