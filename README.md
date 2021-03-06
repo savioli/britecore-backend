@@ -82,9 +82,12 @@ docker-compose run --rm api sh
 ```
 docker-compose run --rm api python manage.py <command>
 ```
-###### Example:
+###### Examples:
 ```
 docker-compose run --rm api python manage.py test
+```
+```
+docker-compose run --rm api python manage.py migrate
 ```
 ---
 
