@@ -91,9 +91,13 @@ class RiskRiskFieldSerializer(ModelSerializer):
 
             for risk_field_enum_option in risk_field_enum_options:
 
+                risk_risk_field = RiskRiskField.objects.filter(
+                    risk_field=risk_field, risk_field_enum_option=risk_field_enum_option
+                ).first()
+
                 risk_risk_field_risk_field_enum_option = (
                     RiskRiskFieldRiskFieldEnumOption.objects.filter(
-                        risk_risk_field_id=risk_field.id,
+                        risk_risk_field_id=risk_risk_field.id,
                         risk_field_enum_option_id=risk_field_enum_option.id,
                     ).first()
                 )
