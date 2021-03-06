@@ -106,13 +106,13 @@ Resources:
         - Name: ALLOWED_HOSTS
           Value: '*'
         - Name: CORS_ALLOWED_ORIGIN
-          Value: http://localhost:3000
+          Value: '*'
         - Name: DB_ENGINE
-          Value: django.db.backends.sqlite3
+          Value: sqlite3
         - Name: DB_HOST
           Value: postgres
         - Name: DB_NAME
-          Value: sqlite3.db
+          Value: britecore
         - Name: DB_PASSWORD
           Value: britecore
         - Name: DB_POST
@@ -121,6 +121,8 @@ Resources:
           Value: postgres
         - Name: DEBUG
           Value: "False"
+        - Name: JSON_ONLY
+          Value: "True"
         - Name: LANGUAGE_CODE
           Value: en-us
         - Name: PYTHONDONTWRITEBYTECODE
@@ -134,7 +136,7 @@ Resources:
         - Name: STATIC_URL
           Value: /static/
         - Name: TEST_DB_NAME
-          Value: britecore
+          Value: britecore_test
         - Name: TIME_ZONE
           Value: UTC
         - Name: USE_I18N
@@ -144,7 +146,7 @@ Resources:
         - Name: USE_TZ
           Value: "True"
         Essential: true
-        Image: docker.io/savioli/britecore-backend:latest@sha256:20bd9d799e581569bf638442c56229e94e4116c64a2afed68f43746bc392c0a4
+        Image: docker.io/savioli/britecore-backend:latest@sha256:8b7360e0c60f35dec9dcf7c2e0e89c5d2d3b9ed0160744a72489b920ea458284
         LinuxParameters: {}
         LogConfiguration:
           LogDriver: awslogs
