@@ -539,11 +539,11 @@ class Command(BaseCommand):
         )
 
         # Field Options
-        risk_field_enum_option_one = RiskFieldEnumOption(
+        risk_field_enum_option_zero = RiskFieldEnumOption(
             name="Basic", description="All the essential coverage."
         )
 
-        risk_field_enum_option_two = RiskFieldEnumOption(
+        risk_field_enum_option_one = RiskFieldEnumOption(
             name="Premium",
             description="All the essential coverage with additional support and services",
         )

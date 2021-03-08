@@ -106,7 +106,9 @@ Resources:
         - Name: ALLOWED_HOSTS
           Value: '*'
         - Name: CORS_ALLOWED_ORIGIN
-          Value: '*'
+          Value: http://localhost:3000
+        - Name: CORS_ALLOW_ALL_ORIGINS
+          Value: "True"
         - Name: DB_ENGINE
           Value: sqlite3
         - Name: DB_HOST
@@ -146,7 +148,7 @@ Resources:
         - Name: USE_TZ
           Value: "True"
         Essential: true
-        Image: docker.io/savioli/britecore-backend:latest@sha256:8b7360e0c60f35dec9dcf7c2e0e89c5d2d3b9ed0160744a72489b920ea458284
+        Image: docker.io/savioli/britecore-backend:latest@sha256:f435b36366a5fa0d39301907120794c7894a11c2b9369acf1c32193b7a534d79
         LinuxParameters: {}
         LogConfiguration:
           LogDriver: awslogs
@@ -161,11 +163,11 @@ Resources:
         - ContainerPort: 8000
           HostPort: 8000
           Protocol: tcp
-      Cpu: "512"
+      Cpu: "256"
       ExecutionRoleArn:
         Ref: ApiTaskExecutionRole
       Family: britecore-backend-api
-      Memory: "1024"
+      Memory: "512"
       NetworkMode: awsvpc
       RequiresCompatibilities:
       - FARGATE
