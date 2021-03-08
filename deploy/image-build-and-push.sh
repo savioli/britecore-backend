@@ -1,5 +1,7 @@
 #!/bin/sh
 
+docker context use default
+
 docker-compose -f docker-compose-prod.yaml build
 
 # To use the access token from your Docker CLI client:

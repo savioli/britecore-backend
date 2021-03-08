@@ -21,7 +21,7 @@ class RiskField(models.Model):
     """A Model that defines the representation of a Field of a Risk"""
 
     name = models.CharField(max_length=128)
-    description = models.CharField(max_length=128)
+    description = models.CharField(max_length=256)
 
     risk_field_type = models.ForeignKey(RiskFieldType, on_delete=models.CASCADE)
 
@@ -36,7 +36,7 @@ class RiskCategory(models.Model):
     """A Model that represents a Category of a Risk"""
 
     name = models.CharField(max_length=128)
-    description = models.CharField(max_length=128)
+    description = models.CharField(max_length=256)
     code = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
@@ -51,7 +51,7 @@ class Risk(models.Model):
 
     name = models.CharField(max_length=128)
     active = models.BooleanField(default=True)
-    description = models.CharField(max_length=128)
+    description = models.CharField(max_length=256)
     risk_category = models.ForeignKey(RiskCategory, on_delete=models.CASCADE)
     risk_fields = models.ManyToManyField(RiskField, through="RiskRiskField")
 
@@ -60,13 +60,14 @@ class Risk(models.Model):
 
     class Meta:
         db_table = "risk"
+        ordering = ["id"]
 
 
 class RiskFieldEnumOption(models.Model):
     """A Model that defines the representation of a RiskFieldEnumOption"""
 
     name = models.CharField(max_length=128)
-    description = models.CharField(max_length=128)
+    description = models.CharField(max_length=256)
 
     def __str__(self):
         return self.name
@@ -94,6 +95,7 @@ class RiskRiskField(models.Model):
 
     class Meta:
         db_table = "risk_risk_field"
+        ordering = ["order"]
 
 
 class RiskRiskFieldRiskFieldEnumOption(models.Model):
@@ -116,3 +118,4 @@ class RiskRiskFieldRiskFieldEnumOption(models.Model):
 
     class Meta:
         db_table = "risk_risk_field_risk_field_enum_option"
+        ordering = ["order"]
