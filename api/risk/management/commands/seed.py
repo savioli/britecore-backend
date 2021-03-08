@@ -260,43 +260,43 @@ class Command(BaseCommand):
         fuel_enum_risk_field.save()
 
         # Field Options
-        gasoline_fuel_risk_field_enum_option = RiskFieldEnumOption(
+        risk_field_enum_option_zero = RiskFieldEnumOption(
             name="Gasoline", description="Gasoline, the most common fuel used in cars."
         )
-        gasoline_fuel_risk_field_enum_option.save()
+        risk_field_enum_option_zero.save()
 
-        ethanol_fuel_risk_field_enum_option = RiskFieldEnumOption(
+        risk_field_enum_option_one = RiskFieldEnumOption(
             name="Ethanol", description="Ethanol, a bio-fuel alternative to gasoline."
         )
-        ethanol_fuel_risk_field_enum_option.save()
+        risk_field_enum_option_one.save()
 
-        flex_fuel_fuel_risk_field_enum_option = RiskFieldEnumOption(
+        risk_field_enum_option_two = RiskFieldEnumOption(
             name="Flex-Fuel",
             description="Flex-Fuel, a combination of gasoline and methanol or ethanol.",
         )
-        flex_fuel_fuel_risk_field_enum_option.save()
+        risk_field_enum_option_two.save()
 
-        bio_diesel_fuel_risk_field_enum_option = RiskFieldEnumOption(
+        risk_field_enum_option_three = RiskFieldEnumOption(
             name="Bio-Diesel", description="Bio-diesel, a diesel substitute."
         )
-        bio_diesel_fuel_risk_field_enum_option.save()
+        risk_field_enum_option_three.save()
 
-        diesel_fuel_risk_field_enum_option = RiskFieldEnumOption(
+        risk_field_enum_option_four = RiskFieldEnumOption(
             name="Diesel",
             description="Diesel fuel that is widely used in transport vehicles.",
         )
-        diesel_fuel_risk_field_enum_option.save()
+        risk_field_enum_option_four.save()
 
         risk_risk_field = self.add_risk_field_to_risk(
             risk=vehicle_risk, risk_field=fuel_enum_risk_field, required=True, order=1
         )
 
         risk_field_enum_options = [
-            gasoline_fuel_risk_field_enum_option,
-            ethanol_fuel_risk_field_enum_option,
-            flex_fuel_fuel_risk_field_enum_option,
-            bio_diesel_fuel_risk_field_enum_option,
-            diesel_fuel_risk_field_enum_option,
+            risk_field_enum_option_zero,
+            risk_field_enum_option_one,
+            risk_field_enum_option_two,
+            risk_field_enum_option_three,
+            risk_field_enum_option_four,
         ]
 
         self.add_risk_field_enum_options(risk_risk_field, risk_field_enum_options, 2)
@@ -404,20 +404,7 @@ class Command(BaseCommand):
             risk_field_enum_option_four,
         ]
 
-        self.add_risk_field_enum_options(
-            risk_risk_field, risk_field_enum_options, checked_index=1
-        )
-
-        # checked_option_index =
-        # for index, risk_field_enum_option in enumerate(risk_field_enum_options):
-
-        #     risk_field_enum_option.save()
-
-        #     self.add_risk_field_enum_option_to_risk_risk_field(
-        #         risk_risk_field=risk_risk_field,
-        #         risk_field_enum_option=risk_field_enum_option,
-        #         order=index
-        #     )
+        self.add_risk_field_enum_options(risk_risk_field, risk_field_enum_options, 1)
 
         # Risk 3
 
@@ -477,27 +464,18 @@ class Command(BaseCommand):
         )
 
         # Field Options
-        risk_field_enum_option_one = RiskFieldEnumOption(name="Yes", description="")
+        risk_field_enum_option_zero = RiskFieldEnumOption(name="Yes", description="")
 
-        risk_field_enum_option_two = RiskFieldEnumOption(name="No", description="")
+        risk_field_enum_option_one = RiskFieldEnumOption(name="No", description="")
 
         risk_field_enum_options = [
+            risk_field_enum_option_zero,
             risk_field_enum_option_one,
-            risk_field_enum_option_two,
         ]
 
-        for index, risk_field_enum_option in enumerate(risk_field_enum_options):
-
-            risk_field_enum_option.save()
-
-            self.add_risk_field_enum_option_to_risk_risk_field(
-                risk_risk_field=risk_risk_field,
-                risk_field_enum_option=risk_field_enum_option,
-                order=index,
-            )
+        self.add_risk_field_enum_options(risk_risk_field, risk_field_enum_options, 2)
 
         # Risk 5
-
         description = "Church Insurance is designed to help you assess and"
         description = (
             description + " manage risk as well as facilitate quick and easy claims."
@@ -572,27 +550,10 @@ class Command(BaseCommand):
 
         risk_field_enum_options = [
             risk_field_enum_option_zero,
-            # risk_field_enum_option_one,
+            risk_field_enum_option_one,
         ]
 
-        for index, risk_field_enum_option in enumerate(risk_field_enum_options):
-
-            risk_field_enum_option.save()
-
-            self.add_risk_field_enum_option_to_risk_risk_field(
-                risk_risk_field=risk_risk_field,
-                risk_field_enum_option=risk_field_enum_option,
-                order=index,
-            )
-
-        risk_field_enum_option_one.save()
-
-        self.add_risk_field_enum_option_to_risk_risk_field(
-            risk_risk_field=risk_risk_field,
-            risk_field_enum_option=risk_field_enum_option_one,
-            order=1,
-            checked=True,
-        )
+        self.add_risk_field_enum_options(risk_risk_field, risk_field_enum_options, 1)
 
         # Risk 5
         description = "Home Insurance is reassurance."
@@ -622,37 +583,20 @@ class Command(BaseCommand):
         risk_field_enum_option_zero = RiskFieldEnumOption(name="Condo", description="")
 
         risk_field_enum_option_one = RiskFieldEnumOption(
-            name="Townhouse", description=""
+            name="Detached House", description=""
         )
 
         risk_field_enum_option_two = RiskFieldEnumOption(
-            name="Detached House", description=""
+            name="Townhouse", description=""
         )
 
         risk_field_enum_options = [
             risk_field_enum_option_zero,
             risk_field_enum_option_one,
-            # risk_field_enum_option_two,
+            risk_field_enum_option_two,
         ]
 
-        for index, risk_field_enum_option in enumerate(risk_field_enum_options):
-
-            risk_field_enum_option.save()
-
-            self.add_risk_field_enum_option_to_risk_risk_field(
-                risk_risk_field=risk_risk_field,
-                risk_field_enum_option=risk_field_enum_option,
-                order=index,
-            )
-
-        risk_field_enum_option_two.save()
-
-        self.add_risk_field_enum_option_to_risk_risk_field(
-            risk_risk_field=risk_risk_field,
-            risk_field_enum_option=risk_field_enum_option_two,
-            order=index + 1,
-            checked=True,
-        )
+        self.add_risk_field_enum_options(risk_risk_field, risk_field_enum_options, 1)
 
         # Field
         self.add_risk_field_to_risk(
@@ -832,27 +776,10 @@ class Command(BaseCommand):
         risk_field_enum_options = [
             risk_field_enum_option_zero,
             risk_field_enum_option_one,
-            # risk_field_enum_option_two,
+            risk_field_enum_option_two,
         ]
 
-        for index, risk_field_enum_option in enumerate(risk_field_enum_options):
-
-            risk_field_enum_option.save()
-
-            self.add_risk_field_enum_option_to_risk_risk_field(
-                risk_risk_field=risk_risk_field,
-                risk_field_enum_option=risk_field_enum_option,
-                order=index,
-            )
-
-        risk_field_enum_option_two.save()
-
-        self.add_risk_field_enum_option_to_risk_risk_field(
-            risk_risk_field=risk_risk_field,
-            risk_field_enum_option=risk_field_enum_option_two,
-            checked=True,
-            order=index + 1,
-        )
+        self.add_risk_field_enum_options(risk_risk_field, risk_field_enum_options, 2)
 
         # Field
         self.add_risk_field_to_risk(
@@ -913,27 +840,10 @@ class Command(BaseCommand):
         risk_field_enum_options = [
             risk_field_enum_option_zero,
             risk_field_enum_option_one,
-            # risk_field_enum_option_two,
+            risk_field_enum_option_two,
         ]
 
-        for index, risk_field_enum_option in enumerate(risk_field_enum_options):
-
-            risk_field_enum_option.save()
-
-            self.add_risk_field_enum_option_to_risk_risk_field(
-                risk_risk_field=risk_risk_field,
-                risk_field_enum_option=risk_field_enum_option,
-                order=index,
-            )
-
-        risk_field_enum_option_two.save()
-
-        self.add_risk_field_enum_option_to_risk_risk_field(
-            risk_risk_field=risk_risk_field,
-            risk_field_enum_option=risk_field_enum_option_two,
-            checked=True,
-            order=index + 1,
-        )
+        self.add_risk_field_enum_options(risk_risk_field, risk_field_enum_options, 2)
 
         # Field
         self.add_risk_field_to_risk(
@@ -1044,12 +954,4 @@ class Command(BaseCommand):
             risk_field_enum_option_six,
         ]
 
-        for index, risk_field_enum_option in enumerate(risk_field_enum_options):
-
-            risk_field_enum_option.save()
-
-            self.add_risk_field_enum_option_to_risk_risk_field(
-                risk_risk_field=risk_risk_field,
-                risk_field_enum_option=risk_field_enum_option,
-                order=index,
-            )
+        self.add_risk_field_enum_options(risk_risk_field, risk_field_enum_options, 2)
