@@ -10,4 +10,4 @@ RUN pip install --no-cache-dir --no-input -r requirements.txt
 
 COPY ./api .
 
-ENTRYPOINT ["gunicorn", "--bind", ":8000", "--workers", "10", "api.wsgi"]
+ENTRYPOINT ["gunicorn", "--bind", ":8000", "--workers", "5", "api.wsgi"]
