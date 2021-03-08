@@ -60,6 +60,7 @@ class Risk(models.Model):
 
     class Meta:
         db_table = "risk"
+        ordering = ["id"]
 
 
 class RiskFieldEnumOption(models.Model):
@@ -94,6 +95,7 @@ class RiskRiskField(models.Model):
 
     class Meta:
         db_table = "risk_risk_field"
+        ordering = ["order"]
 
 
 class RiskRiskFieldRiskFieldEnumOption(models.Model):
@@ -116,3 +118,4 @@ class RiskRiskFieldRiskFieldEnumOption(models.Model):
 
     class Meta:
         db_table = "risk_risk_field_risk_field_enum_option"
+        ordering = ["order"]
